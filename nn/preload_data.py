@@ -9,7 +9,6 @@ Created on Tue Jan 10 16:33:45 2023
 from datawrapper.data import Data
 import numpy as np
 import meshio
-import qllr
 from tqdm import trange
 def getinfo(stl):
     mesh=meshio.read(stl)
@@ -29,11 +28,4 @@ def matrix(x):
 
 lin_indices=[i for i in range(3*num_points)]
 
-q=qllr.QLLR(matrix,bar,lin_indices,[])
-
-for i in trange(NUM_SAMPLES):
-    a[i]=q.transform(getinfo("data/bunny_{}.ply".format(i)).reshape(1,-1)).reshape(-1)
-
-
-np.save("nn/transformer.npy",q)
 np.save("data/data.npy",a)

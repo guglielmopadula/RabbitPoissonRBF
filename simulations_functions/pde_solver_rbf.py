@@ -63,7 +63,7 @@ def calculate_simulation(name,nodes,elem,bary,write=True):
     return value,u_val
 
 if __name__=="__main__":
-    name=sys.argv[1]
+    name="RBF"
     np.random.seed(0)
     NUM_SAMPLES=300
     points=np.load("nn/inference_objects/"+name+".npy").reshape(NUM_SAMPLES,-1,3)

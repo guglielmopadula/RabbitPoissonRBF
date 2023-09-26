@@ -29,13 +29,7 @@ for i in trange(NUM_SAMPLES):
 
 data_arr=data_arr.reshape(NUM_SAMPLES,1,256,256).repeat(1,3,1,1)
 print(data_arr.dtype)
-names={"AE",
-  "AAE",
-  "VAE", 
-  "BEGAN",
-  "DM",
-  "EBM",
-  "NF"}
+names={"RBF"}
 
 for name in names:
     np.random.seed(0)

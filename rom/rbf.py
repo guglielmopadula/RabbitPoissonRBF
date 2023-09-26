@@ -7,15 +7,7 @@ import numpy as np
 from tqdm import trange
 np.random.seed(0)
 
-names=["VAE",
-       "AAE",
-       "AE",
-       "BEGAN",
-       "DM",
-       "EBM",
-       "NF",
-       "AS"
-       ]
+names=["RBF"]
 
 NUM_SAMPLES=300
 NUM_TRAIN_SAMPLES=250
