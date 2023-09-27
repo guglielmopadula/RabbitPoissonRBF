@@ -33,7 +33,7 @@ def calculate_simulation(name,nodes,elem,bary,write=True):
     cell = ufl.Cell(shape, geometric_dimension=gdim)
     domain = ufl.Mesh(ufl.VectorElement("Lagrange", cell, degree))
     domain = mesh.create_mesh(MPI.COMM_WORLD, elem, nodes, domain)
-    V = FunctionSpace(domain, ("CG", 2))
+    V = FunctionSpace(domain, ("CG", 1))
     uD = fem.Function(V)
     uD.interpolate(lambda x: np.exp(-((x[0]-bary[0])**2 + (x[1]-bary[1])**2+(x[2]-bary[2])**2)**0.5))
     tdim = domain.topology.dim

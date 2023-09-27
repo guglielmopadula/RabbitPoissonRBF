@@ -73,11 +73,16 @@ for j in range(3):
 for i in trange(NUMBER_SAMPLES):
     area_data[i]=area(data.reshape(NUMBER_SAMPLES,-1,3)[i],triangles)
 
-
+tmp=kde.sample()
+A=(1/data[0].reshape(-1,3).shape[0])*np.tile(np.eye(3),data[0].reshape(-1,3).shape[0])
+latent=np.zeros((NUMBER_SAMPLES,tmp.reshape(-1).shape[0]))
 for i in trange(NUMBER_SAMPLES):
+    z=kde.sample()
+    latent[i]=z.reshape(-1)
     tmp=transformer.inverse_transform(kde.sample())
+    tmp=tmp.reshape(-1)
+    tmp=tmp+A.T@np.linalg.inv((A@A.T))@(np.mean(data[0].reshape(-1,3),axis=0)-np.mean(tmp.reshape(-1,3),axis=0))
     tmp=tmp.reshape(-1,3)
-    tmp=tmp-np.mean(tmp,axis=0)
     error=error+np.min(np.linalg.norm(tmp.reshape(-1)-data.reshape(NUMBER_SAMPLES,-1),axis=1))/np.linalg.norm(data.reshape(NUMBER_SAMPLES,-1))/NUMBER_SAMPLES
     area_sampled[i]=area(tmp,triangles)
     temp[i]=tmp.reshape(-1)
@@ -101,3 +106,4 @@ print("Saved variances")
 np.save("nn/geometrical_measures/rel_error_"+name+".npy",error)
 print("Saved error")
 np.save("nn/inference_objects/"+name+".npy",temp.reshape(NUMBER_SAMPLES,-1,3))
+np.save('nn/inference_objects/RBF_latent.npy',latent)

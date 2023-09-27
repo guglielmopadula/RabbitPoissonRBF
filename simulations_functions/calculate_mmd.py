@@ -20,13 +20,7 @@ def relmmd(X,Y):
     return (np.mean(s(torch.tensor(X),torch.tensor(X)).to_dense().detach().numpy())+np.mean(s(torch.tensor(Y),torch.tensor(Y)).to_dense().detach().numpy())-2*np.mean(s(torch.tensor(X),torch.tensor(Y)).to_dense().detach().numpy()))/(np.mean(s(torch.tensor(Y),torch.tensor(Y)).to_dense().detach().numpy()))
 
 
-names=["DM",
-       "VAE",
-       "AAE",
-       "AE",
-       "EBM",
-       "NF",
-       "BEGAN"]
+names=["RBF"]
 for name in names:
     pca=PCA(n_components=50)
     u_data=np.load("simulations/data/u_data.npy").reshape(NUMBER_SAMPLES,-1)
